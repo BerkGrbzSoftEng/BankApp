@@ -1,0 +1,40 @@
+﻿ @model BankaOtomasyon.Models.HesapParaModel
+@{
+    ViewBag.Title = "HesapParaCek";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app-main__outer">
+    <div class="app-main__inner">
+
+        <div class="">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Hesaptan  Para Cek</h5>
+                            <form class="" method="post" action="">
+                                @if (@ViewBag.message != null)
+                                {
+                                    <div class="alert alert-danger fade show" role="alert">@ViewBag.message</div>
+                                }
+
+                                <div class="position-relative form-group">
+                                    <label for="exampleSelect" class="">Cekilcek Hesap Seçiniz</label>
+                                    @Html.DropDownList("HesapEkNo", null, "--Para Cekilcek Hesap--", new { @class = "form-control" })
+                                </div>
+
+                                @Html.EditorFor(model => model.Para, new { htmlAttributes = new { @class = "mb-2 form-control", @onkeypress = "return event.charCode>= 48 &&event.charCode<= 57", @placeholder = "Yatırılacak Tutar" } })
+                                <button class="mt-1 btn btn-primary" type="submit">Para Cek</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BankaDBModelStoreContainer" CdmEntityContainer="BankaDBEntities">
+    <EntitySetMapping Name="tblMusteri">
+      <EntityTypeMapping TypeName="BankaDBModel.tblMusteri">
+        <MappingFragment StoreEntitySet="tblMusteri">
+          <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+          <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+          <ScalarProperty Name="musteriSoyAd" ColumnName="musteriSoyAd" />
+          <ScalarProperty Name="musteriTCKN" ColumnName="musteriTCKN" />
+          <ScalarProperty Name="musteriMail" ColumnName="musteriMail" />
+          <ScalarProperty Name="musteriSifre" ColumnName="musteriSifre" />
+          <ScalarProperty Name="musteriTelefon" ColumnName="musteriTelefon" />
+          <ScalarProperty Name="musteriNumarası" ColumnName="musteriNumarası" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMusteriHesap">
+      <EntityTypeMapping TypeName="BankaDBModel.tblMusteriHesap">
+        <MappingFragment StoreEntitySet="tblMusteriHesap">
+          <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+          <ScalarProperty Name="hesapNumarasi" ColumnName="hesapNumarasi" />
+          <ScalarProperty Name="hesapBakiye" ColumnName="hesapBakiye" />
+          <ScalarProperty Name="hesapAcilisTarihi" ColumnName="hesapAcilisTarihi" />
+          <ScalarProperty Name="hesapKapanisTarihi" ColumnName="hesapKapanisTarihi" />
+          <ScalarProperty Name="hesapEkNumarasi" ColumnName="hesapEkNumarasi" />
+          <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+          <ScalarProperty Name="hesapAcikMi" ColumnName="hesapAcikMi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ParaCek" FunctionName="BankaDBModel.Store.ParaCek" />
+    <FunctionImportMapping FunctionImportName="ParaYatir" FunctionName="BankaDBModel.Store.ParaYatir" />
+    <EntitySetMapping Name="tblVirman">
+      <EntityTypeMapping TypeName="BankaDBModel.tblVirman">
+        <MappingFragment StoreEntitySet="tblVirman">
+          <ScalarProperty Name="gonderenEkNumarasi" ColumnName="gonderenEkNumarasi" />
+          <ScalarProperty Name="gonderilenTarih" ColumnName="gonderilenTarih" />
+          <ScalarProperty Name="gonderilenbakiye" ColumnName="gonderilenbakiye" />
+          <ScalarProperty Name="aliciEkNumarasi" ColumnName="aliciEkNumarasi" />
+          <ScalarProperty Name="hesapNumarasi" ColumnName="hesapNumarasi" />
+          <ScalarProperty Name="virmanId" ColumnName="virmanId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Doldur" FunctionName="BankaDBModel.Store.Doldur">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BankaDBModel.Doldur_Result">
+          <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+          <ScalarProperty Name="hesapNumarasi" ColumnName="hesapNumarasi" />
+          <ScalarProperty Name="hesapBakiye" ColumnName="hesapBakiye" />
+          <ScalarProperty Name="hesapAcilisTarihi" ColumnName="hesapAcilisTarihi" />
+          <ScalarProperty Name="hesapKapanisTarihi" ColumnName="hesapKapanisTarihi" />
+          <ScalarProperty Name="hesapEkNumarasi" ColumnName="hesapEkNumarasi" />
+          <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+          <ScalarProperty Name="hesapAcikMi" ColumnName="hesapAcikMi" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Virman" FunctionName="BankaDBModel.Store.Virman" />
+    <FunctionImportMapping FunctionImportName="VirmanKaydet" FunctionName="BankaDBModel.Store.VirmanKaydet" />
+    <FunctionImportMapping FunctionImportName="Havale" FunctionName="BankaDBModel.Store.Havale" />
+    <EntitySetMapping Name="tblHavale">
+      <EntityTypeMapping TypeName="BankaDBModel.tblHavale">
+        <MappingFragment StoreEntitySet="tblHavale">
+          <ScalarProperty Name="havaleGonderenEkNo" ColumnName="havaleGonderenEkNo" />
+          <ScalarProperty Name="havaleAliciEkNo" ColumnName="havaleAliciEkNo" />
+          <ScalarProperty Name="havaleGonderenHesapNo" ColumnName="havaleGonderenHesapNo" />
+          <ScalarProperty Name="havaleAliciHesapNo" ColumnName="havaleAliciHesapNo" />
+          <ScalarProperty Name="havaleTarih" ColumnName="havaleTarih" />
+          <ScalarProperty Name="bakiye" ColumnName="bakiye" />
+          <ScalarProperty Name="havaleId" ColumnName="havaleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="HavaleKaydet" FunctionName="BankaDBModel.Store.HavaleKaydet" />
+    <FunctionImportMapping FunctionImportName="hgsSatis" FunctionName="BankaDBModel.Store.hgsSatis" />
+    <FunctionImportMapping FunctionImportName="hgsBakiyeYukle" FunctionName="BankaDBModel.Store.hgsBakiyeYukle" />
+  </EntityContainerMapping>
+</Mapping>

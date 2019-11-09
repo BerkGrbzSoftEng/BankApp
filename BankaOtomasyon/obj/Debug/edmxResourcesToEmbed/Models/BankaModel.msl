@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BANKModelStoreContainer" CdmEntityContainer="BANKEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BANKModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblHavale">
+      <EntityTypeMapping TypeName="BANKModel.tblHavale">
+        <MappingFragment StoreEntitySet="tblHavale">
+          <ScalarProperty Name="havaleId" ColumnName="havaleId" />
+          <ScalarProperty Name="gonderenHesapNo" ColumnName="gonderenHesapNo" />
+          <ScalarProperty Name="alıcıHesapNo" ColumnName="alıcıHesapNo" />
+          <ScalarProperty Name="gonderenHesapEkNo" ColumnName="gonderenHesapEkNo" />
+          <ScalarProperty Name="alıcıHesapEkNo" ColumnName="alıcıHesapEkNo" />
+          <ScalarProperty Name="havaleHesapId" ColumnName="havaleHesapId" />
+          <ScalarProperty Name="havaleHesapEkId" ColumnName="havaleHesapEkId" />
+          <ScalarProperty Name="havalemusteriId" ColumnName="havalemusteriId" />
+          <ScalarProperty Name="alıcıAd" ColumnName="alıcıAd" />
+          <ScalarProperty Name="alıcıSoyad" ColumnName="alıcıSoyad" />
+          <ScalarProperty Name="gonderenAd" ColumnName="gonderenAd" />
+          <ScalarProperty Name="gonderenSoyad" ColumnName="gonderenSoyad" />
+          <ScalarProperty Name="alıcıTC" ColumnName="alıcıTC" />
+          <ScalarProperty Name="gonderenTC" ColumnName="gonderenTC" />
+          <ScalarProperty Name="miktar" ColumnName="miktar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblHesap">
+      <EntityTypeMapping TypeName="BANKModel.tblHesap">
+        <MappingFragment StoreEntitySet="tblHesap">
+          <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+          <ScalarProperty Name="hesapNo" ColumnName="hesapNo" />
+          <ScalarProperty Name="hesapMusteriId" ColumnName="hesapMusteriId" />
+          <ScalarProperty Name="hesapBakiye" ColumnName="hesapBakiye" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblHesapEk">
+      <EntityTypeMapping TypeName="BANKModel.tblHesapEk">
+        <MappingFragment StoreEntitySet="tblHesapEk">
+          <ScalarProperty Name="hesapekId" ColumnName="hesapekId" />
+          <ScalarProperty Name="hesapekNo" ColumnName="hesapekNo" />
+          <ScalarProperty Name="acikMi" ColumnName="acikMi" />
+          <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+          <ScalarProperty Name="bakiye" ColumnName="bakiye" />
+          <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMusteri">
+      <EntityTypeMapping TypeName="BANKModel.tblMusteri">
+        <MappingFragment StoreEntitySet="tblMusteri">
+          <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+          <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+          <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+          <ScalarProperty Name="musteriTCKN" ColumnName="musteriTCKN" />
+          <ScalarProperty Name="musteriEmail" ColumnName="musteriEmail" />
+          <ScalarProperty Name="musteriTel" ColumnName="musteriTel" />
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+          <ScalarProperty Name="musteriHesapNo" ColumnName="musteriHesapNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblVirman">
+      <EntityTypeMapping TypeName="BANKModel.tblVirman">
+        <MappingFragment StoreEntitySet="tblVirman">
+          <ScalarProperty Name="virmanId" ColumnName="virmanId" />
+          <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+          <ScalarProperty Name="hesapEkId" ColumnName="hesapEkId" />
+          <ScalarProperty Name="alıcıHesapNo" ColumnName="alıcıHesapNo" />
+          <ScalarProperty Name="alıcıHesapEkNo" ColumnName="alıcıHesapEkNo" />
+          <ScalarProperty Name="gonderenHesapNo" ColumnName="gonderenHesapNo" />
+          <ScalarProperty Name="gonderenHesapEkNo" ColumnName="gonderenHesapEkNo" />
+          <ScalarProperty Name="miktar" ColumnName="miktar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ParaYatır" FunctionName="BANKModel.Store.ParaYatır" />
+    <FunctionImportMapping FunctionImportName="ParaCek" FunctionName="BANKModel.Store.ParaCek" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="app-main__outer">
+    <div class="app-main__inner">
+
+        <div class="">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="alert alert-success" role="alert">
+                            @ViewBag.cevap
+                        </div>
+                    @if (@TempData["musteriNo"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                           
+                                @TempData["musteriNo"]
+                           
+                        </div>
+                    }
+                        <button  onclick="window.location.href='/HGS/hgsSatis'" class="btn btn-primary">Satın Al</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

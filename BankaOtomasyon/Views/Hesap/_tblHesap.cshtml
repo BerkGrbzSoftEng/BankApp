@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BankaOtomasyon.Models.tblMusteriHesap>
+
+<div class="col-lg-6">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <h5 class="card-title">Hesap Bilgileri</h5>
+            @if (TempData["bakiye"] != null)
+            {
+                <div class="alert alert-danger fade show" role="alert">@TempData["bakiye"]</div>
+            }
+            <table class="mb-0 table table-striped">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>HesapEkNo</th>
+                        <th>Hesap Acilis Tarihi</th>
+                        <th>Bakiye</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    if (item.hesapAcikMi == true)
+                    {
+                        <tbody>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>@item.hesapEkNumarasi</td>
+                                <td>@item.hesapAcilisTarihi.Value.Date.ToString("d")</td>
+                                <td>@item.hesapBakiye</td>
+                                <td>
+                                    <button onclick="window.location.href='/Hesap/HesapKapat/@item.hesapId'" class="mb-2 mr-2 btn btn-danger">
+                                        Kapat
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    }
+
+                }
+            </table>
+
+        </div>
+    </div>
+</div>

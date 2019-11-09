@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BankaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblHavale">
+          <Key>
+            <PropertyRef Name="havaleId" />
+          </Key>
+          <Property Name="havaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bakiye" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="havaleTarih" Type="date" />
+          <Property Name="havaleAliciHesapNo" Type="int" />
+          <Property Name="havaleGonderenHesapNo" Type="int" />
+          <Property Name="havaleAliciEkNo" Type="int" />
+          <Property Name="havaleGonderenEkNo" Type="int" />
+        </EntityType>
+        <EntityType Name="tblMusteri">
+          <Key>
+            <PropertyRef Name="musteriId" />
+          </Key>
+          <Property Name="musteriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteriAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriSoyAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriTCKN" Type="bigint" />
+          <Property Name="musteriMail" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriSifre" Type="nvarchar" MaxLength="250" />
+          <Property Name="musteriTelefon" Type="nvarchar" MaxLength="20" />
+          <Property Name="musteriNumarası" Type="int" />
+        </EntityType>
+        <EntityType Name="tblMusteriHesap">
+          <Key>
+            <PropertyRef Name="hesapId" />
+          </Key>
+          <Property Name="hesapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hesapNumarasi" Type="int" />
+          <Property Name="hesapBakiye" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="hesapAcilisTarihi" Type="date" />
+          <Property Name="hesapKapanisTarihi" Type="date" />
+          <Property Name="hesapEkNumarasi" Type="int" />
+          <Property Name="musteriId" Type="int" />
+          <Property Name="hesapAcikMi" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblVirman">
+          <Key>
+            <PropertyRef Name="virmanId" />
+          </Key>
+          <Property Name="virmanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hesapNumarasi" Type="int" />
+          <Property Name="aliciEkNumarasi" Type="int" />
+          <Property Name="gonderilenbakiye" Type="int" />
+          <Property Name="gonderilenTarih" Type="date" />
+          <Property Name="gonderenEkNumarasi" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblMusteriHesap_tblMusteri">
+          <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+          <End Role="tblMusteriHesap" Type="Self.tblMusteriHesap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMusteri">
+              <PropertyRef Name="musteriId" />
+            </Principal>
+            <Dependent Role="tblMusteriHesap">
+              <PropertyRef Name="musteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Doldur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="hesapekno" Type="int" Mode="In" />
+          <Parameter Name="hesapnumarasi" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Havale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gonderenhesapno" Type="int" Mode="In" />
+          <Parameter Name="bakiye" Type="decimal" Mode="In" />
+          <Parameter Name="alicihesapno" Type="int" Mode="In" />
+          <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+          <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="HavaleKaydet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+          <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+          <Parameter Name="bakiye" Type="decimal" Mode="In" />
+          <Parameter Name="aliciHesapNo" Type="int" Mode="In" />
+          <Parameter Name="gonderenHesapNo" Type="int" Mode="In" />
+          <Parameter Name="tarih" Type="date" Mode="In" />
+        </Function>
+        <Function Name="hgsBakiyeYukle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="bakiye" Type="decimal" Mode="In" />
+          <Parameter Name="ekno" Type="int" Mode="In" />
+          <Parameter Name="musteriNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="hgsSatis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ekNo" Type="int" Mode="In" />
+          <Parameter Name="musteriNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ParaCek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="hesapBakiye" Type="decimal" Mode="In" />
+          <Parameter Name="hesapEkNumarasi" Type="int" Mode="In" />
+          <Parameter Name="musteriId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ParaYatir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="hesapBakiye" Type="decimal" Mode="In" />
+          <Parameter Name="hesapEkNumarasi" Type="int" Mode="In" />
+          <Parameter Name="musteriId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Virman" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+          <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+          <Parameter Name="bakiye" Type="int" Mode="In" />
+          <Parameter Name="hesapNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="VirmanKaydet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+          <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+          <Parameter Name="bakiye" Type="int" Mode="In" />
+          <Parameter Name="hesapNo" Type="int" Mode="In" />
+          <Parameter Name="tarih" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="BankaDBModelStoreContainer">
+          <EntitySet Name="tblHavale" EntityType="Self.tblHavale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMusteriHesap" EntityType="Self.tblMusteriHesap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVirman" EntityType="Self.tblVirman" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblMusteriHesap_tblMusteri" Association="Self.FK_tblMusteriHesap_tblMusteri">
+            <End Role="tblMusteri" EntitySet="tblMusteri" />
+            <End Role="tblMusteriHesap" EntitySet="tblMusteriHesap" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BankaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblMusteri">
+          <Key>
+            <PropertyRef Name="musteriId" />
+          </Key>
+          <Property Name="musteriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriSoyAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriTCKN" Type="Int64" />
+          <Property Name="musteriMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriSifre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="musteriTelefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="musteriNumarası" Type="Int32" />
+          <NavigationProperty Name="tblMusteriHesap" Relationship="Self.FK_tblMusteriHesap_tblMusteri" FromRole="tblMusteri" ToRole="tblMusteriHesap" />
+        </EntityType>
+        <EntityType Name="tblMusteriHesap">
+          <Key>
+            <PropertyRef Name="hesapId" />
+          </Key>
+          <Property Name="hesapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hesapNumarasi" Type="Int32" />
+          <Property Name="hesapBakiye" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="hesapAcilisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="hesapKapanisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="hesapEkNumarasi" Type="Int32" />
+          <Property Name="musteriId" Type="Int32" />
+          <Property Name="hesapAcikMi" Type="Boolean" />
+          <NavigationProperty Name="tblMusteri" Relationship="Self.FK_tblMusteriHesap_tblMusteri" FromRole="tblMusteriHesap" ToRole="tblMusteri" />
+        </EntityType>
+        <Association Name="FK_tblMusteriHesap_tblMusteri">
+          <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+          <End Role="tblMusteriHesap" Type="Self.tblMusteriHesap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMusteri">
+              <PropertyRef Name="musteriId" />
+            </Principal>
+            <Dependent Role="tblMusteriHesap">
+              <PropertyRef Name="musteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" />
+          <EntitySet Name="tblMusteriHesap" EntityType="Self.tblMusteriHesap" />
+          <AssociationSet Name="FK_tblMusteriHesap_tblMusteri" Association="Self.FK_tblMusteriHesap_tblMusteri">
+            <End Role="tblMusteri" EntitySet="tblMusteri" />
+            <End Role="tblMusteriHesap" EntitySet="tblMusteriHesap" />
+          </AssociationSet>
+          <FunctionImport Name="ParaCek">
+            <Parameter Name="hesapBakiye" Mode="In" Type="Decimal" />
+            <Parameter Name="hesapEkNumarasi" Mode="In" Type="Int32" />
+            <Parameter Name="musteriId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ParaYatir">
+            <Parameter Name="hesapBakiye" Mode="In" Type="Decimal" />
+            <Parameter Name="hesapEkNumarasi" Mode="In" Type="Int32" />
+            <Parameter Name="musteriId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblVirman" EntityType="BankaDBModel.tblVirman" />
+          <FunctionImport Name="Doldur" ReturnType="Collection(BankaDBModel.Doldur_Result)">
+            <Parameter Name="hesapekno" Mode="In" Type="Int32" />
+            <Parameter Name="hesapnumarasi" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Virman">
+            <Parameter Name="aliciEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="gonderenEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="bakiye" Mode="In" Type="Int32" />
+            <Parameter Name="hesapNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="VirmanKaydet">
+            <Parameter Name="aliciEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="gonderenEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="bakiye" Mode="In" Type="Int32" />
+            <Parameter Name="hesapNo" Mode="In" Type="Int32" />
+            <Parameter Name="tarih" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Havale">
+            <Parameter Name="gonderenhesapno" Mode="In" Type="Int32" />
+            <Parameter Name="bakiye" Mode="In" Type="Decimal" />
+            <Parameter Name="alicihesapno" Mode="In" Type="Int32" />
+            <Parameter Name="gonderenEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="aliciEkNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblHavale" EntityType="BankaDBModel.tblHavale" />
+          <FunctionImport Name="HavaleKaydet">
+            <Parameter Name="aliciEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="gonderenEkNo" Mode="In" Type="Int32" />
+            <Parameter Name="bakiye" Mode="In" Type="Decimal" />
+            <Parameter Name="aliciHesapNo" Mode="In" Type="Int32" />
+            <Parameter Name="gonderenHesapNo" Mode="In" Type="Int32" />
+            <Parameter Name="tarih" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="hgsSatis">
+            <Parameter Name="ekNo" Mode="In" Type="Int32" />
+            <Parameter Name="musteriNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="hgsBakiyeYukle">
+            <Parameter Name="bakiye" Mode="In" Type="Decimal" />
+            <Parameter Name="ekno" Mode="In" Type="Int32" />
+            <Parameter Name="musteriNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="tblVirman">
+          <Key>
+            <PropertyRef Name="virmanId" />
+          </Key>
+          <Property Name="virmanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hesapNumarasi" Type="Int32" />
+          <Property Name="aliciEkNumarasi" Type="Int32" />
+          <Property Name="gonderilenbakiye" Type="Int32" />
+          <Property Name="gonderilenTarih" Type="DateTime" Precision="0" />
+          <Property Name="gonderenEkNumarasi" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="Doldur_Result">
+          <Property Type="Int32" Name="hesapId" Nullable="false" />
+          <Property Type="Int32" Name="hesapNumarasi" Nullable="true" />
+          <Property Type="Decimal" Name="hesapBakiye" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="hesapAcilisTarihi" Nullable="true" />
+          <Property Type="DateTime" Name="hesapKapanisTarihi" Nullable="true" />
+          <Property Type="Int32" Name="hesapEkNumarasi" Nullable="true" />
+          <Property Type="Int32" Name="musteriId" Nullable="true" />
+          <Property Type="Boolean" Name="hesapAcikMi" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="tblHavale">
+          <Key>
+            <PropertyRef Name="havaleId" />
+          </Key>
+          <Property Name="havaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bakiye" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="havaleTarih" Type="DateTime" Precision="0" />
+          <Property Name="havaleAliciHesapNo" Type="Int32" />
+          <Property Name="havaleGonderenHesapNo" Type="Int32" />
+          <Property Name="havaleAliciEkNo" Type="Int32" />
+          <Property Name="havaleGonderenEkNo" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BankaDBModelStoreContainer" CdmEntityContainer="BankaDBEntities">
+          <EntitySetMapping Name="tblMusteri">
+            <EntityTypeMapping TypeName="BankaDBModel.tblMusteri">
+              <MappingFragment StoreEntitySet="tblMusteri">
+                <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+                <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+                <ScalarProperty Name="musteriSoyAd" ColumnName="musteriSoyAd" />
+                <ScalarProperty Name="musteriTCKN" ColumnName="musteriTCKN" />
+                <ScalarProperty Name="musteriMail" ColumnName="musteriMail" />
+                <ScalarProperty Name="musteriSifre" ColumnName="musteriSifre" />
+                <ScalarProperty Name="musteriTelefon" ColumnName="musteriTelefon" />
+                <ScalarProperty Name="musteriNumarası" ColumnName="musteriNumarası" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMusteriHesap">
+            <EntityTypeMapping TypeName="BankaDBModel.tblMusteriHesap">
+              <MappingFragment StoreEntitySet="tblMusteriHesap">
+                <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+                <ScalarProperty Name="hesapNumarasi" ColumnName="hesapNumarasi" />
+                <ScalarProperty Name="hesapBakiye" ColumnName="hesapBakiye" />
+                <ScalarProperty Name="hesapAcilisTarihi" ColumnName="hesapAcilisTarihi" />
+                <ScalarProperty Name="hesapKapanisTarihi" ColumnName="hesapKapanisTarihi" />
+                <ScalarProperty Name="hesapEkNumarasi" ColumnName="hesapEkNumarasi" />
+                <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+                <ScalarProperty Name="hesapAcikMi" ColumnName="hesapAcikMi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ParaCek" FunctionName="BankaDBModel.Store.ParaCek" />
+          <FunctionImportMapping FunctionImportName="ParaYatir" FunctionName="BankaDBModel.Store.ParaYatir" />
+          <EntitySetMapping Name="tblVirman">
+            <EntityTypeMapping TypeName="BankaDBModel.tblVirman">
+              <MappingFragment StoreEntitySet="tblVirman">
+                <ScalarProperty Name="gonderenEkNumarasi" ColumnName="gonderenEkNumarasi" />
+                <ScalarProperty Name="gonderilenTarih" ColumnName="gonderilenTarih" />
+                <ScalarProperty Name="gonderilenbakiye" ColumnName="gonderilenbakiye" />
+                <ScalarProperty Name="aliciEkNumarasi" ColumnName="aliciEkNumarasi" />
+                <ScalarProperty Name="hesapNumarasi" ColumnName="hesapNumarasi" />
+                <ScalarProperty Name="virmanId" ColumnName="virmanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Doldur" FunctionName="BankaDBModel.Store.Doldur">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BankaDBModel.Doldur_Result">
+                <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+                <ScalarProperty Name="hesapNumarasi" ColumnName="hesapNumarasi" />
+                <ScalarProperty Name="hesapBakiye" ColumnName="hesapBakiye" />
+                <ScalarProperty Name="hesapAcilisTarihi" ColumnName="hesapAcilisTarihi" />
+                <ScalarProperty Name="hesapKapanisTarihi" ColumnName="hesapKapanisTarihi" />
+                <ScalarProperty Name="hesapEkNumarasi" ColumnName="hesapEkNumarasi" />
+                <ScalarProperty Name="musteriId" ColumnName="musteriId" />
+                <ScalarProperty Name="hesapAcikMi" ColumnName="hesapAcikMi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Virman" FunctionName="BankaDBModel.Store.Virman" />
+          <FunctionImportMapping FunctionImportName="VirmanKaydet" FunctionName="BankaDBModel.Store.VirmanKaydet" />
+          <FunctionImportMapping FunctionImportName="Havale" FunctionName="BankaDBModel.Store.Havale" />
+          <EntitySetMapping Name="tblHavale">
+            <EntityTypeMapping TypeName="BankaDBModel.tblHavale">
+              <MappingFragment StoreEntitySet="tblHavale">
+                <ScalarProperty Name="havaleGonderenEkNo" ColumnName="havaleGonderenEkNo" />
+                <ScalarProperty Name="havaleAliciEkNo" ColumnName="havaleAliciEkNo" />
+                <ScalarProperty Name="havaleGonderenHesapNo" ColumnName="havaleGonderenHesapNo" />
+                <ScalarProperty Name="havaleAliciHesapNo" ColumnName="havaleAliciHesapNo" />
+                <ScalarProperty Name="havaleTarih" ColumnName="havaleTarih" />
+                <ScalarProperty Name="bakiye" ColumnName="bakiye" />
+                <ScalarProperty Name="havaleId" ColumnName="havaleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="HavaleKaydet" FunctionName="BankaDBModel.Store.HavaleKaydet" />
+          <FunctionImportMapping FunctionImportName="hgsSatis" FunctionName="BankaDBModel.Store.hgsSatis" />
+          <FunctionImportMapping FunctionImportName="hgsBakiyeYukle" FunctionName="BankaDBModel.Store.hgsBakiyeYukle" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

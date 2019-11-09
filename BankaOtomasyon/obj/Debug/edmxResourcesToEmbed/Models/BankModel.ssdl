@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BankaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblHavale">
+    <Key>
+      <PropertyRef Name="havaleId" />
+    </Key>
+    <Property Name="havaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bakiye" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="havaleTarih" Type="date" />
+    <Property Name="havaleAliciHesapNo" Type="int" />
+    <Property Name="havaleGonderenHesapNo" Type="int" />
+    <Property Name="havaleAliciEkNo" Type="int" />
+    <Property Name="havaleGonderenEkNo" Type="int" />
+  </EntityType>
+  <EntityType Name="tblMusteri">
+    <Key>
+      <PropertyRef Name="musteriId" />
+    </Key>
+    <Property Name="musteriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="musteriAd" Type="nvarchar" MaxLength="50" />
+    <Property Name="musteriSoyAd" Type="nvarchar" MaxLength="50" />
+    <Property Name="musteriTCKN" Type="bigint" />
+    <Property Name="musteriMail" Type="nvarchar" MaxLength="50" />
+    <Property Name="musteriSifre" Type="nvarchar" MaxLength="250" />
+    <Property Name="musteriTelefon" Type="nvarchar" MaxLength="20" />
+    <Property Name="musteriNumarası" Type="int" />
+  </EntityType>
+  <EntityType Name="tblMusteriHesap">
+    <Key>
+      <PropertyRef Name="hesapId" />
+    </Key>
+    <Property Name="hesapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hesapNumarasi" Type="int" />
+    <Property Name="hesapBakiye" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="hesapAcilisTarihi" Type="date" />
+    <Property Name="hesapKapanisTarihi" Type="date" />
+    <Property Name="hesapEkNumarasi" Type="int" />
+    <Property Name="musteriId" Type="int" />
+    <Property Name="hesapAcikMi" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblVirman">
+    <Key>
+      <PropertyRef Name="virmanId" />
+    </Key>
+    <Property Name="virmanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hesapNumarasi" Type="int" />
+    <Property Name="aliciEkNumarasi" Type="int" />
+    <Property Name="gonderilenbakiye" Type="int" />
+    <Property Name="gonderilenTarih" Type="date" />
+    <Property Name="gonderenEkNumarasi" Type="int" />
+  </EntityType>
+  <Association Name="FK_tblMusteriHesap_tblMusteri">
+    <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+    <End Role="tblMusteriHesap" Type="Self.tblMusteriHesap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMusteri">
+        <PropertyRef Name="musteriId" />
+      </Principal>
+      <Dependent Role="tblMusteriHesap">
+        <PropertyRef Name="musteriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Doldur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="hesapekno" Type="int" Mode="In" />
+    <Parameter Name="hesapnumarasi" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Havale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="gonderenhesapno" Type="int" Mode="In" />
+    <Parameter Name="bakiye" Type="decimal" Mode="In" />
+    <Parameter Name="alicihesapno" Type="int" Mode="In" />
+    <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+    <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="HavaleKaydet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+    <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+    <Parameter Name="bakiye" Type="decimal" Mode="In" />
+    <Parameter Name="aliciHesapNo" Type="int" Mode="In" />
+    <Parameter Name="gonderenHesapNo" Type="int" Mode="In" />
+    <Parameter Name="tarih" Type="date" Mode="In" />
+  </Function>
+  <Function Name="hgsBakiyeYukle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bakiye" Type="decimal" Mode="In" />
+    <Parameter Name="ekno" Type="int" Mode="In" />
+    <Parameter Name="musteriNo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="hgsSatis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ekNo" Type="int" Mode="In" />
+    <Parameter Name="musteriNo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ParaCek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="hesapBakiye" Type="decimal" Mode="In" />
+    <Parameter Name="hesapEkNumarasi" Type="int" Mode="In" />
+    <Parameter Name="musteriId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ParaYatir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="hesapBakiye" Type="decimal" Mode="In" />
+    <Parameter Name="hesapEkNumarasi" Type="int" Mode="In" />
+    <Parameter Name="musteriId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Virman" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+    <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+    <Parameter Name="bakiye" Type="int" Mode="In" />
+    <Parameter Name="hesapNo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="VirmanKaydet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="aliciEkNo" Type="int" Mode="In" />
+    <Parameter Name="gonderenEkNo" Type="int" Mode="In" />
+    <Parameter Name="bakiye" Type="int" Mode="In" />
+    <Parameter Name="hesapNo" Type="int" Mode="In" />
+    <Parameter Name="tarih" Type="date" Mode="In" />
+  </Function>
+  <EntityContainer Name="BankaDBModelStoreContainer">
+    <EntitySet Name="tblHavale" EntityType="Self.tblHavale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMusteriHesap" EntityType="Self.tblMusteriHesap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblVirman" EntityType="Self.tblVirman" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblMusteriHesap_tblMusteri" Association="Self.FK_tblMusteriHesap_tblMusteri">
+      <End Role="tblMusteri" EntitySet="tblMusteri" />
+      <End Role="tblMusteriHesap" EntitySet="tblMusteriHesap" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

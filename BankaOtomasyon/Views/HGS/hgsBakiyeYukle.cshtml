@@ -1,0 +1,51 @@
+﻿@model BankaOtomasyon.Models.HGSModel
+@{
+    ViewBag.Title = "hgsBakiyeYukle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app-main__outer">
+    <div class="app-main__inner">
+
+        <div class="">
+
+
+            @if (TempData["hgsNumara"] != null)
+            {
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                 <h5 class="card-title">HGS Bakiye Islemleri<div id="bakiyeGetir" class="ml-auto badge badge-pill badge-danger pull-right"></div></h5>
+                                <div class="alert alert-info fade show " role="alert">İslem Yapılcak HGS Numarasi:&nbsp;<b>@TempData["hgsNumara"]</b></div>
+                                <form class="" method="post" action="">
+                                    <div id="ex">
+                                        <div class="position-relative form-group">
+                                            @if (ViewBag.message != null)
+                                            {
+                                                <div class="alert alert-danger fade show" role="alert">@ViewBag.message</div>
+                                            }
+                                            <label for="exampleSelect" class="">Ödeme Yapılcak Ek Numarasi</label>
+
+                                            @Html.DropDownList("EkNo", null, "--Ek Numaranizi Seciniz--", new { @class = "form-control" })
+                                            <hr />
+
+                                        </div>
+                                        <label>Yatırılacak Tutar</label>
+                                        @Html.EditorFor(model => model.Bakiye, new { htmlAttributes = new { @class = "mb-2 form-control", @onkeypress = "return event.charCode>= 48 &&event.charCode<= 57", @placeholder = "Yatırılacak Tutar" } })
+                                        <button class="mt-1 btn btn-primary pull-right" type="submit">Para Yatir</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BANKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblHavale">
+    <Key>
+      <PropertyRef Name="havaleId" />
+    </Key>
+    <Property Name="havaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="gonderenHesapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="alıcıHesapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gonderenHesapEkNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="alıcıHesapEkNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="havaleHesapId" Type="Int32" />
+    <Property Name="havaleHesapEkId" Type="Int32" />
+    <Property Name="havalemusteriId" Type="Int32" />
+    <Property Name="alıcıAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="alıcıSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gonderenAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gonderenSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="alıcıTC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gonderenTC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="miktar" Type="Double" />
+    <NavigationProperty Name="tblHesap" Relationship="Self.FK_tblHavale_tblHesap" FromRole="tblHavale" ToRole="tblHesap" />
+    <NavigationProperty Name="tblHesapEk" Relationship="Self.FK_tblHavale_tblHesapEk" FromRole="tblHavale" ToRole="tblHesapEk" />
+  </EntityType>
+  <EntityType Name="tblHesap">
+    <Key>
+      <PropertyRef Name="hesapId" />
+    </Key>
+    <Property Name="hesapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hesapNo" Type="Int64" />
+    <Property Name="hesapMusteriId" Type="Int32" />
+    <Property Name="hesapBakiye" Type="Double" />
+    <NavigationProperty Name="tblHavale" Relationship="Self.FK_tblHavale_tblHesap" FromRole="tblHesap" ToRole="tblHavale" />
+    <NavigationProperty Name="tblMusteri" Relationship="Self.FK_tblHesap_tblMusteri" FromRole="tblHesap" ToRole="tblMusteri" />
+    <NavigationProperty Name="tblHesapEk" Relationship="Self.FK_tblHesapEk_tblHesap" FromRole="tblHesap" ToRole="tblHesapEk" />
+    <NavigationProperty Name="tblVirman" Relationship="Self.FK_tblVirman_tblHesap" FromRole="tblHesap" ToRole="tblVirman" />
+  </EntityType>
+  <EntityType Name="tblHesapEk">
+    <Key>
+      <PropertyRef Name="hesapekId" />
+    </Key>
+    <Property Name="hesapekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hesapekNo" Type="Int32" Nullable="false" />
+    <Property Name="acikMi" Type="Boolean" />
+    <Property Name="hesapId" Type="Int32" />
+    <Property Name="bakiye" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="musteriId" Type="Int32" />
+    <NavigationProperty Name="tblHavale" Relationship="Self.FK_tblHavale_tblHesapEk" FromRole="tblHesapEk" ToRole="tblHavale" />
+    <NavigationProperty Name="tblHesap" Relationship="Self.FK_tblHesapEk_tblHesap" FromRole="tblHesapEk" ToRole="tblHesap" />
+    <NavigationProperty Name="tblMusteri" Relationship="Self.FK_tblHesapEk_tblMusteri" FromRole="tblHesapEk" ToRole="tblMusteri" />
+    <NavigationProperty Name="tblVirman" Relationship="Self.FK_tblVirman_tblHesapEk" FromRole="tblHesapEk" ToRole="tblVirman" />
+  </EntityType>
+  <EntityType Name="tblMusteri">
+    <Key>
+      <PropertyRef Name="musteriId" />
+    </Key>
+    <Property Name="musteriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="musteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="musteriSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="musteriTCKN" Type="Int64" />
+    <Property Name="musteriEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="musteriTel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="sifre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="musteriHesapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblHesap" Relationship="Self.FK_tblHesap_tblMusteri" FromRole="tblMusteri" ToRole="tblHesap" />
+    <NavigationProperty Name="tblHesapEk" Relationship="Self.FK_tblHesapEk_tblMusteri" FromRole="tblMusteri" ToRole="tblHesapEk" />
+  </EntityType>
+  <EntityType Name="tblVirman">
+    <Key>
+      <PropertyRef Name="virmanId" />
+    </Key>
+    <Property Name="virmanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hesapId" Type="Int32" />
+    <Property Name="hesapEkId" Type="Int32" />
+    <Property Name="alıcıHesapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="alıcıHesapEkNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gonderenHesapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gonderenHesapEkNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="miktar" Type="Double" />
+    <NavigationProperty Name="tblHesap" Relationship="Self.FK_tblVirman_tblHesap" FromRole="tblVirman" ToRole="tblHesap" />
+    <NavigationProperty Name="tblHesapEk" Relationship="Self.FK_tblVirman_tblHesapEk" FromRole="tblVirman" ToRole="tblHesapEk" />
+  </EntityType>
+  <Association Name="FK_tblHavale_tblHesap">
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="0..1" />
+    <End Role="tblHavale" Type="Self.tblHavale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesap">
+        <PropertyRef Name="hesapId" />
+      </Principal>
+      <Dependent Role="tblHavale">
+        <PropertyRef Name="havaleHesapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHavale_tblHesapEk">
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="0..1" />
+    <End Role="tblHavale" Type="Self.tblHavale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesapEk">
+        <PropertyRef Name="hesapekId" />
+      </Principal>
+      <Dependent Role="tblHavale">
+        <PropertyRef Name="havaleHesapEkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHesap_tblMusteri">
+    <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMusteri">
+        <PropertyRef Name="musteriId" />
+      </Principal>
+      <Dependent Role="tblHesap">
+        <PropertyRef Name="hesapMusteriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHesapEk_tblHesap">
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="0..1" />
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesap">
+        <PropertyRef Name="hesapId" />
+      </Principal>
+      <Dependent Role="tblHesapEk">
+        <PropertyRef Name="hesapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblVirman_tblHesap">
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="0..1" />
+    <End Role="tblVirman" Type="Self.tblVirman" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesap">
+        <PropertyRef Name="hesapId" />
+      </Principal>
+      <Dependent Role="tblVirman">
+        <PropertyRef Name="hesapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHesapEk_tblMusteri">
+    <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMusteri">
+        <PropertyRef Name="musteriId" />
+      </Principal>
+      <Dependent Role="tblHesapEk">
+        <PropertyRef Name="musteriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblVirman_tblHesapEk">
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="0..1" />
+    <End Role="tblVirman" Type="Self.tblVirman" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesapEk">
+        <PropertyRef Name="hesapekId" />
+      </Principal>
+      <Dependent Role="tblVirman">
+        <PropertyRef Name="hesapEkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BANKEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tblHavale" EntityType="Self.tblHavale" />
+    <EntitySet Name="tblHesap" EntityType="Self.tblHesap" />
+    <EntitySet Name="tblHesapEk" EntityType="Self.tblHesapEk" />
+    <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" />
+    <EntitySet Name="tblVirman" EntityType="Self.tblVirman" />
+    <AssociationSet Name="FK_tblHavale_tblHesap" Association="Self.FK_tblHavale_tblHesap">
+      <End Role="tblHesap" EntitySet="tblHesap" />
+      <End Role="tblHavale" EntitySet="tblHavale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHavale_tblHesapEk" Association="Self.FK_tblHavale_tblHesapEk">
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+      <End Role="tblHavale" EntitySet="tblHavale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHesap_tblMusteri" Association="Self.FK_tblHesap_tblMusteri">
+      <End Role="tblMusteri" EntitySet="tblMusteri" />
+      <End Role="tblHesap" EntitySet="tblHesap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHesapEk_tblHesap" Association="Self.FK_tblHesapEk_tblHesap">
+      <End Role="tblHesap" EntitySet="tblHesap" />
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblVirman_tblHesap" Association="Self.FK_tblVirman_tblHesap">
+      <End Role="tblHesap" EntitySet="tblHesap" />
+      <End Role="tblVirman" EntitySet="tblVirman" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHesapEk_tblMusteri" Association="Self.FK_tblHesapEk_tblMusteri">
+      <End Role="tblMusteri" EntitySet="tblMusteri" />
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblVirman_tblHesapEk" Association="Self.FK_tblVirman_tblHesapEk">
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+      <End Role="tblVirman" EntitySet="tblVirman" />
+    </AssociationSet>
+    <FunctionImport Name="ParaYatır">
+      <Parameter Name="bakiye" Mode="In" Type="Decimal" />
+      <Parameter Name="musteriId" Mode="In" Type="Int32" />
+      <Parameter Name="hesapEkNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ParaCek">
+      <Parameter Name="bakiye" Mode="In" Type="Decimal" />
+      <Parameter Name="musteriId" Mode="In" Type="Int32" />
+      <Parameter Name="hesapEkNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

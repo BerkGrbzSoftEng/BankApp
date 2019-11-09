@@ -1,0 +1,49 @@
+﻿@model BankaOtomasyon.Models.HGSModel
+@{
+    ViewBag.Title = "hgsSatis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app-main__outer">
+    <div class="app-main__inner">
+
+        <div class="">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">HGS Satın Alma Islemi<div id="bakiyeGetir" class="ml-auto badge badge-pill badge-danger pull-right"></div></h5>
+
+                            <form class="" method="post" action="">
+                                <div id="ex">
+                                    <div class="position-relative form-group">
+                                        @if (ViewBag.message != null)
+                                        {
+                                            <div class="alert alert-danger fade show" role="alert">@ViewBag.message</div>
+                                        }
+                                        @if (ViewBag.hgsNo != null)
+                                        {
+                                            
+                                            <div class="alert alert-success fade show" role="alert">Satın Alma İslemi Basarili-HGS Numaranız:<b>@ViewBag.hgsNo</b></div>
+                                        }
+                                        <label for="exampleSelect" class="">Hgs Alincak Ek Numarasi</label>
+
+                                        @Html.DropDownList("EkNo", null, "--Ek Numaranizi Seciniz--", new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+
+                                
+                                <button class="mt-1 btn btn-primary" type="submit">Satın Al</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

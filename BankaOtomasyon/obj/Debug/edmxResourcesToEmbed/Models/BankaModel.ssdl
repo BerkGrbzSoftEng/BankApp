@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BANKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblHavale">
+    <Key>
+      <PropertyRef Name="havaleId" />
+    </Key>
+    <Property Name="havaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gonderenHesapNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="alıcıHesapNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="gonderenHesapEkNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="alıcıHesapEkNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="havaleHesapId" Type="int" />
+    <Property Name="havaleHesapEkId" Type="int" />
+    <Property Name="havalemusteriId" Type="int" />
+    <Property Name="alıcıAd" Type="nvarchar" MaxLength="50" />
+    <Property Name="alıcıSoyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="gonderenAd" Type="nvarchar" MaxLength="50" />
+    <Property Name="gonderenSoyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="alıcıTC" Type="nvarchar" MaxLength="50" />
+    <Property Name="gonderenTC" Type="nvarchar" MaxLength="50" />
+    <Property Name="miktar" Type="float" />
+  </EntityType>
+  <EntityType Name="tblHesap">
+    <Key>
+      <PropertyRef Name="hesapId" />
+    </Key>
+    <Property Name="hesapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hesapNo" Type="bigint" />
+    <Property Name="hesapMusteriId" Type="int" />
+    <Property Name="hesapBakiye" Type="float" />
+  </EntityType>
+  <EntityType Name="tblHesapEk">
+    <Key>
+      <PropertyRef Name="hesapekId" />
+    </Key>
+    <Property Name="hesapekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hesapekNo" Type="int" Nullable="false" />
+    <Property Name="acikMi" Type="bit" />
+    <Property Name="hesapId" Type="int" />
+    <Property Name="bakiye" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="musteriId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblMusteri">
+    <Key>
+      <PropertyRef Name="musteriId" />
+    </Key>
+    <Property Name="musteriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="musteriAd" Type="nvarchar" MaxLength="50" />
+    <Property Name="musteriSoyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="musteriTCKN" Type="bigint" />
+    <Property Name="musteriEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="musteriTel" Type="nvarchar" MaxLength="20" />
+    <Property Name="sifre" Type="nvarchar" MaxLength="250" />
+    <Property Name="musteriHesapNo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblVirman">
+    <Key>
+      <PropertyRef Name="virmanId" />
+    </Key>
+    <Property Name="virmanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hesapId" Type="int" />
+    <Property Name="hesapEkId" Type="int" />
+    <Property Name="alıcıHesapNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="alıcıHesapEkNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="gonderenHesapNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="gonderenHesapEkNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="miktar" Type="float" />
+  </EntityType>
+  <Association Name="FK_tblHavale_tblHesap">
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="0..1" />
+    <End Role="tblHavale" Type="Self.tblHavale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesap">
+        <PropertyRef Name="hesapId" />
+      </Principal>
+      <Dependent Role="tblHavale">
+        <PropertyRef Name="havaleHesapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHavale_tblHesapEk">
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="0..1" />
+    <End Role="tblHavale" Type="Self.tblHavale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesapEk">
+        <PropertyRef Name="hesapekId" />
+      </Principal>
+      <Dependent Role="tblHavale">
+        <PropertyRef Name="havaleHesapEkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHesap_tblMusteri">
+    <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMusteri">
+        <PropertyRef Name="musteriId" />
+      </Principal>
+      <Dependent Role="tblHesap">
+        <PropertyRef Name="hesapMusteriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHesapEk_tblHesap">
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="0..1" />
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesap">
+        <PropertyRef Name="hesapId" />
+      </Principal>
+      <Dependent Role="tblHesapEk">
+        <PropertyRef Name="hesapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHesapEk_tblMusteri">
+    <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMusteri">
+        <PropertyRef Name="musteriId" />
+      </Principal>
+      <Dependent Role="tblHesapEk">
+        <PropertyRef Name="musteriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblVirman_tblHesap">
+    <End Role="tblHesap" Type="Self.tblHesap" Multiplicity="0..1" />
+    <End Role="tblVirman" Type="Self.tblVirman" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesap">
+        <PropertyRef Name="hesapId" />
+      </Principal>
+      <Dependent Role="tblVirman">
+        <PropertyRef Name="hesapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblVirman_tblHesapEk">
+    <End Role="tblHesapEk" Type="Self.tblHesapEk" Multiplicity="0..1" />
+    <End Role="tblVirman" Type="Self.tblVirman" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblHesapEk">
+        <PropertyRef Name="hesapekId" />
+      </Principal>
+      <Dependent Role="tblVirman">
+        <PropertyRef Name="hesapEkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ParaCek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bakiye" Type="decimal" Mode="In" />
+    <Parameter Name="musteriId" Type="int" Mode="In" />
+    <Parameter Name="hesapEkNo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ParaYatır" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bakiye" Type="decimal" Mode="In" />
+    <Parameter Name="musteriId" Type="int" Mode="In" />
+    <Parameter Name="hesapEkNo" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="BANKModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblHavale" EntityType="Self.tblHavale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblHesap" EntityType="Self.tblHesap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblHesapEk" EntityType="Self.tblHesapEk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblVirman" EntityType="Self.tblVirman" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblHavale_tblHesap" Association="Self.FK_tblHavale_tblHesap">
+      <End Role="tblHesap" EntitySet="tblHesap" />
+      <End Role="tblHavale" EntitySet="tblHavale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHavale_tblHesapEk" Association="Self.FK_tblHavale_tblHesapEk">
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+      <End Role="tblHavale" EntitySet="tblHavale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHesap_tblMusteri" Association="Self.FK_tblHesap_tblMusteri">
+      <End Role="tblMusteri" EntitySet="tblMusteri" />
+      <End Role="tblHesap" EntitySet="tblHesap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHesapEk_tblHesap" Association="Self.FK_tblHesapEk_tblHesap">
+      <End Role="tblHesap" EntitySet="tblHesap" />
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHesapEk_tblMusteri" Association="Self.FK_tblHesapEk_tblMusteri">
+      <End Role="tblMusteri" EntitySet="tblMusteri" />
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblVirman_tblHesap" Association="Self.FK_tblVirman_tblHesap">
+      <End Role="tblHesap" EntitySet="tblHesap" />
+      <End Role="tblVirman" EntitySet="tblVirman" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblVirman_tblHesapEk" Association="Self.FK_tblVirman_tblHesapEk">
+      <End Role="tblHesapEk" EntitySet="tblHesapEk" />
+      <End Role="tblVirman" EntitySet="tblVirman" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

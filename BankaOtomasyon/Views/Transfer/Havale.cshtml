@@ -1,0 +1,53 @@
+﻿@model BankaOtomasyon.Models.HavaleModel
+@{
+    ViewBag.Title = "Havale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app-main__outer">
+    <div class="app-main__inner">
+
+        <div class="">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Virman Islemleri<div id="bakiyeGetir" class="ml-auto badge badge-pill badge-danger pull-right"></div></h5>
+
+                            <form class="" method="post" action="">
+                                <div id="ex">
+                                    <div class="position-relative form-group">
+                                        @if (ViewBag.message != null)
+                                        {
+                                            <div class="alert alert-danger fade show" role="alert">@ViewBag.message</div>
+                                        }
+                                        <label for="exampleSelect" class="">Gonderen Hesap Numarasi</label>
+
+                                        @Html.DropDownList("EkNo", null, "--Ek Numaranizi Seciniz--", new { @class = "form-control" })
+                                    </div>
+                                    <div class="position-relative form-group">
+                                        <label for="exampleSelect" class="">Alıcı Hesap Numarasi</label>
+                                        @Html.EditorFor(model => model.AliciHesapNo, new { htmlAttributes = new { @class = "mb-2 form-control", @onkeypress = "return event.charCode>= 48 &&event.charCode<= 57", @placeholder = "Alici Hesap Numarasi" } })
+
+                                    </div>
+                                    <div class="position-relative form-group">
+                                        <label for="exampleSelect" class="">Alıcı Hesap Ek Numarasi</label>
+                                        @Html.EditorFor(model => model.AliciHesapEkNo, new { htmlAttributes = new { @class = "mb-2 form-control", @onkeypress = "return event.charCode>= 48 &&event.charCode<= 57", @placeholder = "Alici Hesap Ek Numarasi" } })
+
+                                    </div>
+                                </div>
+
+                                @Html.EditorFor(model => model.bakiye, new { htmlAttributes = new { @class = "mb-2 form-control", @onkeypress = "return event.charCode>= 48 &&event.charCode<= 57", @placeholder = "Göderilcek Tutar" } })
+                                <button class="mt-1 btn btn-primary" type="submit">Para Yatir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

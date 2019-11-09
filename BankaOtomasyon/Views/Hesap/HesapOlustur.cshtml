@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "HesapOlustur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+<div class="app-main__outer">
+    <div class="app-main__inner">
+         
+    <div class="">
+           
+            <div class="row">
+                <div class="col-lg-6 col-xl-4">
+                    <div class="card mb-3 widget-content bg-night-fade">
+                        <div class="widget-content-wrapper text-white">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">@Session["musteriFullName"]</div>
+                                <div class="widget-subheading">Müşteri Numarası</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-white"><span>@Session["musteriHesapNo"]</span></div>
+                                <button class="mb-2 mr-2 btn btn-light" onclick="window.location.href='/Hesap/EkHesapOlustur'">Hesap Aç
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @{Html.RenderAction("_tblHesap", "Hesap");}
+            </div>
+            
+      
+        </div>
+    </div>
+    
+</div>
+ 
+ 
+
